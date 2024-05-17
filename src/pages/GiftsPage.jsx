@@ -14,6 +14,8 @@ import CHARACTERS from '../data/characters';
 import { useStore } from '../store';
 import defaultGiftsData from '../store/defaultData';
 
+const giftIds = ['1', '2', '3', '4'];
+
 export default function Gifts() {
   const gifts = useStore((store) => store.gifts);
   const updateGifts = useStore((store) => store.updateGifts);
@@ -59,30 +61,16 @@ export default function Gifts() {
                     onChange={() => handleToggleCheckbox(name, 'ready')}
                   />
                 </Td>
-                <GiftInput
-                  name={name}
-                  id="gift1"
-                  isChecked={gifts[name].gift1}
-                  handleToggleCheckbox={handleToggleCheckbox}
-                />
-                <GiftInput
-                  name={name}
-                  id="gift2"
-                  isChecked={gifts[name].gift2}
-                  handleToggleCheckbox={handleToggleCheckbox}
-                />
-                <GiftInput
-                  name={name}
-                  id="gift3"
-                  isChecked={gifts[name].gift3}
-                  handleToggleCheckbox={handleToggleCheckbox}
-                />
-                <GiftInput
-                  name={name}
-                  id="gift4"
-                  isChecked={gifts[name].gift4}
-                  handleToggleCheckbox={handleToggleCheckbox}
-                />
+                {giftIds.map((id) => {
+                  return (
+                    <GiftInput
+                      key={`${name}-${id}`}
+                      name={name}
+                      id={id}
+                      handleToggleCheckbox={handleToggleCheckbox}
+                    />
+                  );
+                })}
               </Tr>
             );
           })}
