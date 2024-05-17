@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import defaultGiftsData from './defaultData';
+import CHARACTERS from '../data/characters';
 
 export const useStore = create(
   persist(
@@ -20,9 +21,14 @@ export const useStore = create(
         });
       },
       setGifts: (newGifts) => {
-        return set({
-          gifts: newGifts,
+        return set({ gifts: newGifts });
+      },
+      resetGiftedToday: () => {
+        const newGifts = get().gifts;
+        CHARACTERS.forEach((name) => {
+          newGifts[name].giftedToday = false;
         });
+        return set({ gifts: newGifts });
       },
     }),
     {

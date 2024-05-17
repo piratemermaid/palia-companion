@@ -1,6 +1,7 @@
 import {
   Button,
   Checkbox,
+  HStack,
   Table,
   Tbody,
   Td,
@@ -20,6 +21,7 @@ export default function Gifts() {
   const gifts = useStore((store) => store.gifts);
   const updateGifts = useStore((store) => store.updateGifts);
   const setGifts = useStore((store) => store.setGifts);
+  const resetGiftedToday = useStore((store) => store.resetGiftedToday);
 
   const handleToggleCheckbox = (name, property) => {
     updateGifts(name, property, !gifts[name][property]);
@@ -87,12 +89,10 @@ export default function Gifts() {
         </Tbody>
       </Table>
 
-      <Button
-        onClick={() => setGifts(defaultGiftsData)}
-        sx={{ maxWidth: '100px' }}
-      >
-        Clear table
-      </Button>
+      <HStack>
+        <Button onClick={() => setGifts(defaultGiftsData)}>Clear table</Button>
+        <Button onClick={resetGiftedToday}>Reset gifted today</Button>
+      </HStack>
     </>
   );
 }
