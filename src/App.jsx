@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router-dom';
-import { Box, Button, SimpleGrid } from '@chakra-ui/react';
+import { Box, SimpleGrid } from '@chakra-ui/react';
 
 import NavBar from './components/NavBar';
-import { useStore } from './store';
+// import { useStore } from './store';
 import './styles/App.css';
 
 export default function App() {
-  const something = useStore((store) => store.something);
-  const toggleSomething = useStore((store) => store.toggleSomething);
+  // const something = useStore((store) => store.something);
+  // const toggleSomething = useStore((store) => store.toggleSomething);
 
   return (
     <SimpleGrid columns={1} spacing={4}>
@@ -15,10 +15,10 @@ export default function App() {
         <NavBar />
       </Box>
 
-      <Box>
+      {/* <Box>
         State thing: {something ? 'yes' : 'no'}{' '}
         <Button onClick={toggleSomething}>Toggle</Button>
-      </Box>
+      </Box> */}
 
       <Outlet />
     </SimpleGrid>

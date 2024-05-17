@@ -1,16 +1,10 @@
-import PageOne from '../pages/PageOne';
-import PageTwo from '../pages/PageTwo';
+import GiftsPage from '../pages/GiftsPage';
 
 const ROUTES = [
   {
-    label: 'Page One',
-    path: '/one',
-    Component: PageOne,
-  },
-  {
-    label: 'Page Two',
-    path: '/two',
-    Component: PageTwo,
+    label: 'Gifts',
+    path: '/',
+    Component: GiftsPage,
   },
 ];
 
