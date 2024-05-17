@@ -11,8 +11,16 @@ export default function GiftInput({ name, id, handleToggleCheckbox }) {
   const giftedProp = `gifted${id}`;
   const giftNameProp = `gift${id}`;
 
+  const handleGiftChecked = (event) => {
+    handleToggleCheckbox(name, giftedProp);
+    if (event.target.checked) {
+      updateGifts(name, 'giftedToday', true);
+    }
+  };
+
   const handleUpdateGiftText = (event) => {
     updateGifts(name, giftNameProp, event.target.value);
+    updateGifts(name, 'giftedToday', true);
   };
 
   const isGifted = giftData[giftedProp];
@@ -20,10 +28,7 @@ export default function GiftInput({ name, id, handleToggleCheckbox }) {
   return (
     <Td sx={{ width: '25%' }}>
       <InputGroup>
-        <Checkbox
-          isChecked={isGifted}
-          onChange={() => handleToggleCheckbox(name, giftedProp)}
-        />
+        <Checkbox isChecked={isGifted} onChange={handleGiftChecked} />
         {!isGifted ? (
           <Input
             size="sm"
