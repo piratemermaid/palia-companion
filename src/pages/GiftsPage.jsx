@@ -6,6 +6,11 @@ import { useStore } from '../store';
 
 export default function Gifts() {
   const gifts = useStore((store) => store.gifts);
+  const updateGifts = useStore((store) => store.updateGifts);
+
+  const handleToggleCheckbox = (name, property) => {
+    updateGifts(name, property, !gifts[name][property]);
+  };
 
   return (
     <>
@@ -26,18 +31,47 @@ export default function Gifts() {
               <Tr key={name}>
                 <Td>{name}</Td>
                 <Td>
-                  <Checkbox checked={gifts[name].giftedToday} />
+                  <Checkbox
+                    isChecked={gifts[name].giftedToday}
+                    onChange={() => handleToggleCheckbox(name, 'giftedToday')}
+                  />
                 </Td>
                 <Td>
-                  <Checkbox checked={gifts[name].have} />
+                  <Checkbox
+                    isChecked={gifts[name].have}
+                    onChange={() => handleToggleCheckbox(name, 'have')}
+                  />
                 </Td>
                 <Td>
-                  <Checkbox checked={gifts[name].ready} />
+                  <Checkbox
+                    isChecked={gifts[name].ready}
+                    onChange={() => handleToggleCheckbox(name, 'ready')}
+                  />
                 </Td>
-                <GiftInput checked={gifts[name].gift1} />
-                <GiftInput checked={gifts[name].gift2} />
-                <GiftInput checked={gifts[name].gift3} />
-                <GiftInput checked={gifts[name].gift4} />
+                <GiftInput
+                  name={name}
+                  id="gift1"
+                  isChecked={gifts[name].gift1}
+                  handleToggleCheckbox={handleToggleCheckbox}
+                />
+                <GiftInput
+                  name={name}
+                  id="gift2"
+                  isChecked={gifts[name].gift2}
+                  handleToggleCheckbox={handleToggleCheckbox}
+                />
+                <GiftInput
+                  name={name}
+                  id="gift3"
+                  isChecked={gifts[name].gift3}
+                  handleToggleCheckbox={handleToggleCheckbox}
+                />
+                <GiftInput
+                  name={name}
+                  id="gift4"
+                  isChecked={gifts[name].gift4}
+                  handleToggleCheckbox={handleToggleCheckbox}
+                />
               </Tr>
             );
           })}

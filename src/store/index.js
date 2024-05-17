@@ -7,10 +7,18 @@ export const useStore = create(
   persist(
     (set, get) => ({
       gifts: defaultGiftsData,
-      // toggleSomething: () => {
-      //   const something = get().something;
-      //   return set({ something: !something });
-      // },
+      updateGifts: (name, property, newValue) => {
+        const gifts = get().gifts;
+        return set({
+          gifts: {
+            ...gifts,
+            [name]: {
+              ...gifts[name],
+              [property]: newValue,
+            },
+          },
+        });
+      },
     }),
     {
       name: 'persistedState',
