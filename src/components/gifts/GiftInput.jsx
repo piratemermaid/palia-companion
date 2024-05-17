@@ -1,4 +1,4 @@
-import { Checkbox, Input, InputGroup, Td } from '@chakra-ui/react';
+import { Checkbox, Input, InputGroup, Td, Text } from '@chakra-ui/react';
 
 import { useStore } from '../../store';
 
@@ -15,19 +15,27 @@ export default function GiftInput({ name, id, handleToggleCheckbox }) {
     updateGifts(name, giftNameProp, event.target.value);
   };
 
+  const isGifted = giftData[giftedProp];
+
   return (
     <Td sx={{ width: '25%' }}>
       <InputGroup>
         <Checkbox
-          isChecked={giftData[giftedProp]}
+          isChecked={isGifted}
           onChange={() => handleToggleCheckbox(name, giftedProp)}
         />
-        <Input
-          size="sm"
-          sx={{ ml: 3 }}
-          value={giftData[giftNameProp]}
-          onChange={handleUpdateGiftText}
-        />
+        {!isGifted ? (
+          <Input
+            size="sm"
+            sx={{ ml: 2, p: 1 }}
+            value={giftData[giftNameProp]}
+            onChange={handleUpdateGiftText}
+          />
+        ) : (
+          <Text sx={{ ml: 2, textDecoration: 'line-through' }}>
+            {giftData[giftNameProp]}
+          </Text>
+        )}
       </InputGroup>
     </Td>
   );

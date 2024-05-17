@@ -40,8 +40,18 @@ export default function Gifts() {
         </Thead>
         <Tbody>
           {CHARACTERS.map((name) => {
+            const isGiftedToday = gifts[name].giftedToday;
+            const isReadyToDeliver = gifts[name].ready;
+
             return (
-              <Tr key={name}>
+              <Tr
+                key={name}
+                sx={{
+                  opacity: isGiftedToday ? 0.3 : 1,
+                  color: isReadyToDeliver ? 'green.500' : '',
+                  fontWeight: isReadyToDeliver ? 700 : '',
+                }}
+              >
                 <Td>{name}</Td>
                 <Td>
                   <Checkbox
