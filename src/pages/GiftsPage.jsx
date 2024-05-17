@@ -1,12 +1,23 @@
-import { Checkbox, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import {
+  Button,
+  Checkbox,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react';
 
 import GiftInput from '../components/gifts/GiftInput';
 import CHARACTERS from '../data/characters';
 import { useStore } from '../store';
+import defaultGiftsData from '../store/defaultData';
 
 export default function Gifts() {
   const gifts = useStore((store) => store.gifts);
   const updateGifts = useStore((store) => store.updateGifts);
+  const setGifts = useStore((store) => store.setGifts);
 
   const handleToggleCheckbox = (name, property) => {
     updateGifts(name, property, !gifts[name][property]);
@@ -77,6 +88,13 @@ export default function Gifts() {
           })}
         </Tbody>
       </Table>
+
+      <Button
+        onClick={() => setGifts(defaultGiftsData)}
+        sx={{ maxWidth: '100px' }}
+      >
+        Clear table
+      </Button>
     </>
   );
 }

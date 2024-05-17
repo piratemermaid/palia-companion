@@ -19,6 +19,11 @@ export const useStore = create(
           },
         });
       },
+      setGifts: (newGifts) => {
+        return set({
+          gifts: newGifts,
+        });
+      },
     }),
     {
       name: 'persistedState',
