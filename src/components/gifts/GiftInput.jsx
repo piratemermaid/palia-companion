@@ -15,6 +15,8 @@ export default function GiftInput({ name, id, handleToggleCheckbox }) {
     handleToggleCheckbox(name, giftedProp);
     if (event.target.checked) {
       updateGifts(name, 'giftedToday', true);
+      updateGifts(name, 'have', false);
+      updateGifts(name, 'ready', false);
     }
   };
 
