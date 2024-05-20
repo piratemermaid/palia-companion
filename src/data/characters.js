@@ -13,7 +13,7 @@ const CHARACTERS = [
   'Hodari',
   'Jel',
   'Jina',
-  'Kenji',
+  'Kenli',
   'Kenyatta',
   "Nai'o",
   'Najuma',
