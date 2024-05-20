@@ -20,7 +20,6 @@ export default function GiftInput({ name, id, handleToggleCheckbox }) {
 
   const handleUpdateGiftText = (event) => {
     updateGifts(name, giftNameProp, event.target.value);
-    updateGifts(name, 'giftedToday', true);
   };
 
   const isGifted = giftData[giftedProp];
