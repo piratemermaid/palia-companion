@@ -5,8 +5,11 @@ const defaultGiftsData = {};
 CHARACTERS.forEach((name) => {
   defaultGiftsData[name] = {
     giftedToday: false,
-    have: false,
     ready: false,
+    have1: false,
+    have2: false,
+    have3: false,
+    have4: false,
     gifted1: false,
     gifted2: false,
     gifted3: false,

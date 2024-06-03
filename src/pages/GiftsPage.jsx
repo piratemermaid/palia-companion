@@ -27,6 +27,19 @@ export default function Gifts() {
     updateGifts(name, property, !gifts[name][property]);
   };
 
+  const getHasAGift = (name) => {
+    const giftData = gifts[name];
+
+    let hasAGift = false;
+
+    for (let i = 1; i <= 4; i++) {
+      if (giftData[`have${i}`] && !giftData[`gifted${i}`]) {
+        hasAGift = true;
+      }
+    }
+    return hasAGift;
+  };
+
   return (
     <>
       <Table variant="striped" size="sm">
@@ -44,6 +57,7 @@ export default function Gifts() {
           {CHARACTERS.map((name) => {
             const isGiftedToday = gifts[name].giftedToday;
             const isReadyToDeliver = gifts[name].ready;
+            const hasAGift = getHasAGift(name);
 
             return (
               <Tr
@@ -63,7 +77,7 @@ export default function Gifts() {
                 </Td>
                 <Td>
                   <Checkbox
-                    isChecked={gifts[name].have}
+                    isChecked={hasAGift}
                     onChange={() => handleToggleCheckbox(name, 'have')}
                   />
                 </Td>
