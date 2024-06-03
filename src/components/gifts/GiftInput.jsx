@@ -39,7 +39,11 @@ export default function GiftInput({ name, id, handleToggleCheckbox }) {
     <Td sx={{ width: '25%' }}>
       <InputGroup>
         <Checkbox isChecked={hasGift} onChange={handleHasGiftChecked} />
-        <Checkbox isChecked={isGifted} onChange={handleGiftedChecked} />
+        <Checkbox
+          isChecked={isGifted}
+          onChange={handleGiftedChecked}
+          sx={{ ml: 1 }}
+        />
         {!isGifted ? (
           <Input
             size="sm"
