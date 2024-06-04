@@ -1,0 +1,28 @@
+const LOCATIONS = {
+  Ashura: ['Kilima'],
+  Auni: ['Kilima'],
+  Badruu: ['Kilima'],
+  Caleri: ['Kilima'],
+  Chayne: ['Kilima'],
+  Delaila: ['Kilima'],
+  Einar: ['Kilima'],
+  Elouisa: ['Kilima'],
+  Eshe: ['Kilima'],
+  Hassian: ['Kilima'],
+  Hekla: ['Kilima'],
+  Hodari: ['Kilima', 'Bahari'],
+  Jel: ['Kilima'],
+  Jina: ['Kilima'],
+  Kenli: ['Kilima'],
+  Kenyatta: ['Kilima'],
+  "Nai'o": ['Kilima'],
+  Najuma: ['Bahari'],
+  Reth: ['Kilima'],
+  Sifuu: ['Kilima'],
+  Tamala: ['Bahari'],
+  Tau: ['Kilima'],
+  Tish: ['Kilima'],
+  Zeki: ['Kilima'],
+};
+
+export default LOCATIONS;

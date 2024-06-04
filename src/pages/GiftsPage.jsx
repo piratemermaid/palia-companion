@@ -1,10 +1,17 @@
 import {
+  Box,
   Button,
   Checkbox,
+  FormControl,
+  FormLabel,
   HStack,
+  SimpleGrid,
+  Spacer,
+  Switch,
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -12,16 +19,30 @@ import {
 
 import GiftInput from '../components/gifts/GiftInput';
 import CHARACTERS from '../data/characters';
+import LOCATIONS from '../data/locations';
 import { useStore } from '../store';
 import defaultGiftsData from '../store/defaultData';
+import React from 'react';
 
 const giftIds = ['1', '2', '3', '4'];
 
 export default function Gifts() {
+  const [filters, setFilters] = React.useState({
+    showGiftedToday: true,
+    showKilima: true,
+  });
+
   const gifts = useStore((store) => store.gifts);
   const updateGifts = useStore((store) => store.updateGifts);
   const setGifts = useStore((store) => store.setGifts);
   const resetGiftedToday = useStore((store) => store.resetGiftedToday);
+
+  const handleFilterChange = (event, name) => {
+    setFilters({
+      ...filters,
+      [name]: event.target.checked,
+    });
+  };
 
   const handleToggleCheckbox = (name, property) => {
     updateGifts(name, property, !gifts[name][property]);
@@ -40,8 +61,44 @@ export default function Gifts() {
     return haveGift;
   };
 
+  const getCharactersToDisplay = () => {
+    return CHARACTERS.filter((char) => {
+      let include = true;
+
+      if (!filters.showGiftedToday && gifts[char].giftedToday) {
+        include = false;
+      }
+
+      if (filters.showKilima && !LOCATIONS[char].includes('Kilima')) {
+        include = false;
+      } else if (!filters.showKilima && !LOCATIONS[char].includes('Bahari')) {
+        include = false;
+      }
+
+      if (include) return char;
+    });
+  };
+
   return (
     <>
+      <FormControl display="flex" alignItems="center">
+        <FormLabel htmlFor="filter-gifted-today" mb="0">
+          Gifted today
+        </FormLabel>
+        <Switch
+          onChange={(event) => handleFilterChange(event, 'showGiftedToday')}
+          id="filter-gifted-today"
+        />
+
+        <FormLabel htmlFor="filter-kilima" mb="0" sx={{ ml: 5 }}>
+          Show Kilima/Bahari Bay
+        </FormLabel>
+        <Switch
+          id="filter-kilima"
+          onChange={(event) => handleFilterChange(event, 'showKilima')}
+        />
+      </FormControl>
+
       <Table variant="striped" size="sm">
         <Thead>
           <Th>Character</Th>
@@ -54,7 +111,7 @@ export default function Gifts() {
           <Th>Gift 4</Th>
         </Thead>
         <Tbody>
-          {CHARACTERS.map((name) => {
+          {getCharactersToDisplay().map((name) => {
             const isGiftedToday = gifts[name].giftedToday;
             const isReadyToDeliver = gifts[name].ready;
             const haveGift = getHaveGift(name);
