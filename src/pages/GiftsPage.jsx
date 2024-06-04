@@ -2,19 +2,16 @@ import React from 'react';
 import {
   Button,
   Checkbox,
-  FormControl,
-  FormLabel,
   HStack,
-  Switch,
   Table,
   Tbody,
   Td,
-  Th,
-  Thead,
   Tr,
 } from '@chakra-ui/react';
 
-import GiftInput from '../components/gifts/GiftInput';
+import GiftInput from '../components/giftsTable/GiftInput';
+import GiftTableFilters from '../components/giftsTable/TableFilters';
+import GiftTableHeader from '../components/giftsTable/TableHeader';
 import CHARACTERS from '../data/characters';
 import LOCATIONS from '../data/locations';
 import defaultGiftsData from '../store/defaultData';
@@ -95,42 +92,14 @@ export default function Gifts() {
 
   return (
     <>
-      <FormControl display="flex" alignItems="center">
-        <FormLabel htmlFor="filter-kilima" mb="0">
-          Kilima
-        </FormLabel>
-        <Switch
-          id="filter-kilima"
-          isChecked={filters.showKilima}
-          onChange={(event) => handleFilterChange(event, 'showKilima')}
-        />
-        <FormLabel htmlFor="filter-kilima" mb="0" sx={{ ml: 3 }}>
-          Bahari Bay
-        </FormLabel>
-
-        <FormLabel htmlFor="filter-gifted-today" mb="0" sx={{ ml: 10 }}>
-          Hide gifted today
-        </FormLabel>
-        <Switch
-          isChecked={filters.hideGiftedToday}
-          onChange={(event) => handleFilterChange(event, 'hideGiftedToday')}
-          id="filter-gifted-today"
-        />
-      </FormControl>
+      <GiftTableFilters
+        filters={filters}
+        handleFilterChange={handleFilterChange}
+      />
 
       <Table variant="striped" size="sm">
-        <Thead>
-          <Tr>
-            <Th>Character</Th>
-            <Th>Gifted Today</Th>
-            <Th>Have</Th>
-            <Th>Ready</Th>
-            <Th>Gift 1</Th>
-            <Th>Gift 2</Th>
-            <Th>Gift 3</Th>
-            <Th>Gift 4</Th>
-          </Tr>
-        </Thead>
+        <GiftTableHeader />
+
         <Tbody>
           {getCharactersToDisplay().map((name) => {
             const isGiftedToday = gifts[name].giftedToday;
