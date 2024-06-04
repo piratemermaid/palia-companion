@@ -28,7 +28,7 @@ const giftIds = ['1', '2', '3', '4'];
 
 export default function Gifts() {
   const [filters, setFilters] = React.useState({
-    showGiftedToday: true,
+    hideGiftedToday: true,
     showKilima: true,
   });
 
@@ -65,7 +65,7 @@ export default function Gifts() {
     return CHARACTERS.filter((char) => {
       let include = true;
 
-      if (!filters.showGiftedToday && gifts[char].giftedToday) {
+      if (filters.hideGiftedToday && gifts[char].giftedToday) {
         include = false;
       }
 
@@ -83,11 +83,11 @@ export default function Gifts() {
     <>
       <FormControl display="flex" alignItems="center">
         <FormLabel htmlFor="filter-gifted-today" mb="0">
-          Gifted today
+          Hide gifted today
         </FormLabel>
         <Switch
-          isChecked={filters.showGiftedToday}
-          onChange={(event) => handleFilterChange(event, 'showGiftedToday')}
+          isChecked={filters.hideGiftedToday}
+          onChange={(event) => handleFilterChange(event, 'hideGiftedToday')}
           id="filter-gifted-today"
         />
 
