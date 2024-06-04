@@ -62,7 +62,7 @@ export default function Gifts() {
   };
 
   const getCharactersToDisplay = () => {
-    return CHARACTERS.filter((char) => {
+    const filteredChars = CHARACTERS.filter((char) => {
       let include = true;
 
       if (filters.hideGiftedToday && gifts[char].giftedToday) {
@@ -76,6 +76,10 @@ export default function Gifts() {
       }
 
       if (include) return char;
+    });
+
+    return filteredChars.sort((a, b) => {
+      return gifts[a].ready === gifts[b].ready ? 0 : a ? -1 : 1;
     });
   };
 
