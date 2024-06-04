@@ -86,6 +86,7 @@ export default function Gifts() {
           Gifted today
         </FormLabel>
         <Switch
+          isChecked={filters.showGiftedToday}
           onChange={(event) => handleFilterChange(event, 'showGiftedToday')}
           id="filter-gifted-today"
         />
@@ -95,6 +96,7 @@ export default function Gifts() {
         </FormLabel>
         <Switch
           id="filter-kilima"
+          isChecked={filters.showKilima}
           onChange={(event) => handleFilterChange(event, 'showKilima')}
         />
       </FormControl>
