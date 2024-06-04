@@ -117,14 +117,16 @@ export default function Gifts() {
 
       <Table variant="striped" size="sm">
         <Thead>
-          <Th>Character</Th>
-          <Th>Gifted Today</Th>
-          <Th>Have</Th>
-          <Th>Ready</Th>
-          <Th>Gift 1</Th>
-          <Th>Gift 2</Th>
-          <Th>Gift 3</Th>
-          <Th>Gift 4</Th>
+          <Tr>
+            <Th>Character</Th>
+            <Th>Gifted Today</Th>
+            <Th>Have</Th>
+            <Th>Ready</Th>
+            <Th>Gift 1</Th>
+            <Th>Gift 2</Th>
+            <Th>Gift 3</Th>
+            <Th>Gift 4</Th>
+          </Tr>
         </Thead>
         <Tbody>
           {getCharactersToDisplay().map((name) => {
