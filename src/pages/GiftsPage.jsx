@@ -1,17 +1,14 @@
+import React from 'react';
 import {
-  Box,
   Button,
   Checkbox,
   FormControl,
   FormLabel,
   HStack,
-  SimpleGrid,
-  Spacer,
   Switch,
   Table,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
@@ -20,15 +17,13 @@ import {
 import GiftInput from '../components/gifts/GiftInput';
 import CHARACTERS from '../data/characters';
 import LOCATIONS from '../data/locations';
-import { useStore } from '../store';
 import defaultGiftsData from '../store/defaultData';
-import React from 'react';
-
-const giftIds = ['1', '2', '3', '4'];
+import { useStore } from '../store';
+import { charHasGiftReady, giftIds } from '../utils/giftUtils';
 
 export default function Gifts() {
   const [filters, setFilters] = React.useState({
-    hideGiftedToday: true,
+    hideGiftedToday: false,
     showKilima: true,
   });
 
@@ -48,17 +43,34 @@ export default function Gifts() {
     updateGifts(name, property, !gifts[name][property]);
   };
 
-  const getHaveGift = (name) => {
-    const giftData = gifts[name];
+  const sortCharacters = (chars) => {
+    const charsSorted = {
+      ready: [],
+      haveGift: [],
+      rest: [],
+      giftedToday: [],
+    };
 
-    let haveGift = false;
+    for (const char of chars) {
+      const giftData = gifts[char];
 
-    for (let i = 1; i <= 4; i++) {
-      if (giftData[`have${i}`] && !giftData[`gifted${i}`]) {
-        haveGift = true;
+      if (giftData.giftedToday) {
+        charsSorted.giftedToday.push(char);
+      } else {
+        if (giftData.ready) {
+          charsSorted.ready.push(char);
+        } else if (charHasGiftReady(giftData)) {
+          charsSorted.haveGift.push(char);
+        } else {
+          charsSorted.rest.push(char);
+        }
       }
     }
-    return haveGift;
+
+    return charsSorted.ready
+      .concat(charsSorted.haveGift)
+      .concat(charsSorted.rest)
+      .concat(charsSorted.giftedToday);
   };
 
   const getCharactersToDisplay = () => {
@@ -78,9 +90,7 @@ export default function Gifts() {
       if (include) return char;
     });
 
-    return filteredChars.sort((a, b) => {
-      return gifts[a].ready === gifts[b].ready ? 0 : a ? -1 : 1;
-    });
+    return sortCharacters(filteredChars);
   };
 
   return (
@@ -120,7 +130,7 @@ export default function Gifts() {
           {getCharactersToDisplay().map((name) => {
             const isGiftedToday = gifts[name].giftedToday;
             const isReadyToDeliver = gifts[name].ready;
-            const haveGift = getHaveGift(name);
+            const haveGift = charHasGiftReady(gifts[name]);
 
             return (
               <Tr
